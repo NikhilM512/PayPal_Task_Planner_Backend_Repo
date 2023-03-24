@@ -27,17 +27,17 @@ app.post("/register",async(req,res)=>{
   const isUserPresent = await UserModel.findOne({email});
 
   if(isUserPresent?.email){
-            res.send("Please try to Login first, User Already Exist");
+            res.send({"Message":"Please try to Login first, User Already Exist"});
   }else{
     try {
         bcrypt.hash(password,3, async function(err,hash){
             const user= new UserModel({email,password:hash});
             await user.save();
-            res.send("Congratulations, SignUp Successfull");
+            res.send({"Message":"Congratulations, SignUp Successfull"});
         });
     } catch (error) {
         console.log(error);
-        res.send("Something went wrong, Please try again later");
+        res.send({"Error":"Something went wrong, Please try again later"});
     }
   }
 
@@ -54,17 +54,17 @@ app.post("/login",async(req,res)=>{
             bcrypt.compare(password,hashed_pass,function(err,result){
                 if(result){
                     const token=jwt.sign({"userID":isUserRegisrered[0]._id},process.env.KEY);
-                    res.send({"message":"Log In Successfull","Token":token});
+                    res.send({"Message":"Log In Successfull","Token":token});
                 }else{
-                    res.send("Log-In Failed. Please Enter Correct Password");
+                    res.send({"Message":"Log-In Failed. Please Enter Correct Password"});
                 }
             })
         }else{
-            res.send("Log-In Failed. Please Sign Up.");
+            res.send({"Message":"Log-In Failed. Please Sign Up."});
         }
     } catch (error) {
          console.log(error);
-        res.send("Something went wrong, Please try again later")
+        res.send({"Error":"Something went wrong, Please try again later"})
      }
 })
 
