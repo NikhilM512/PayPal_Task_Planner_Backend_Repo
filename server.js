@@ -44,7 +44,7 @@ app.post("/register",async(req,res)=>{
 })
 
 
-app.post("/login",async(req,res)=>{
+app.post("/sign-in",async(req,res)=>{
      const {email,password}=req.body;
      try {
         const isUserRegisrered = await UserModel.find({email});
