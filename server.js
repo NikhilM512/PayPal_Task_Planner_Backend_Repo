@@ -37,7 +37,7 @@ app.post("/register",async(req,res)=>{
         });
     } catch (error) {
         console.log(error);
-        res.send({"Error":"Something went wrong, Please try again later"});
+        res.send({"Message":"Something went wrong, Please try again later"});
     }
   }
 
@@ -64,7 +64,7 @@ app.post("/login",async(req,res)=>{
         }
     } catch (error) {
          console.log(error);
-        res.send({"Error":"Something went wrong, Please try again later"})
+        res.send({"Message":"Something went wrong, Please try again later"})
      }
 })
 
