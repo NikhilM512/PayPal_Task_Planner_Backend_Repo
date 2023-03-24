@@ -5,51 +5,110 @@ const taskRouter = express.Router();
 
 
 taskRouter.get("/", async (req, res) => {
-    const userID = req.body.userID
-    const tasks = await TaskModel.find({userID});
-    res.send(tasks);
+
+    const userID = req.body.userID;
+
+    try{
+
+        const tasks = await TaskModel.find({userID});
+
+        res.send( { data : tasks } );
+
+    }
+    catch(err){
+
+        console.log(err);
+
+        res.send({"err" : "Something went wrong"});
+    }
 });
 
 taskRouter.post("/", async (req, res) => {
-    const payload = req.body
-    //get token from header
-    //verify token using jwt
+
+    const payload = req.body;
+
     try{
-        const new_task = new TaskModel(payload)
+
+        const new_task = new TaskModel(payload);
+
         await new_task.save();
-        res.send({"msg" : "Task Added successfully"})
+
+        res.send({"msg" : "Task Added successfully"});
     }
+
     catch(err){
-        console.log(err)
-        res.send({"err" : "Something went wrong"})
+
+        console.log(err);
+
+        res.send({"err" : "Something went wrong"});
+
     }
 });
 
 taskRouter.patch("/:taskID", async (req, res) => {
-    const taskID = req.params.taskID
-    const userID = req.body.userID
-    const task = await TaskModel.findOne({_id:taskID})
-    if(userID !== task.userID){
-        res.send("Not authorised")
+
+    const taskID = req.params.taskID;
+    const userID = req.body.userID;
+
+    try{
+
+    const task = await TaskModel.findOne({_id:taskID});
+
+        if(userID !== task.userID){
+
+            res.send({"msg" :"Not authorised"});
+
+        }
+        else{
+
+            await TaskModel.findByIdAndUpdate({_id : taskID},payload);
+
+            res.send({"msg" : "Task updated successfully"});
+
+        }
+    
     }
-    else{
-        await TaskModel.findByIdAndUpdate({_id : taskID},payload)
-        res.send({"msg" : "Task updated successfully"})
-    }
+        catch(err){
+
+            console.log(err);
+    
+            res.send({"err" : "Something went wrong"});
+    
+        }
 })
 
-taskRouter.delete("/:taskID", async (req, res) => {
-const taskID = req.params.taskID
-const userID = req.body.userID
-const task = await TaskModel.findOne({_id:taskID})
-if(userID !== task.userID){
-    res.send("Not authorised")
-}
-else{
-    await TaskModel.findByIdAndDelete({_id : taskID})
-    res.send({"msg" : "Task deleted successfully"})
-}
-})
+    taskRouter.delete("/:taskID", async (req, res) => {
+
+    const taskID = req.params.taskID;
+    const userID = req.body.userID;
+
+    try{
+
+        const task = await TaskModel.findOne({_id:taskID});
+
+        if(userID !== task.userID){
+
+            res.send({"msg" :"Not authorised"});
+
+        }
+
+        else{
+
+            await TaskModel.findByIdAndDelete({_id : taskID});
+
+            res.send({"msg" : "Task deleted successfully"});
+
+        }
+
+    }
+    catch(err){
+
+        console.log(err);
+
+        res.send({"err" : "Something went wrong"});
+
+    }
+    });
 
 
 module.exports = {taskRouter}
