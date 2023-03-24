@@ -7,7 +7,7 @@ const { UserModel } = require("./Model/User.model");
 const jwt=require("jsonwebtoken");
 const {authenticationMiddleware}=require("./Middlewares/authenticationMiddleware");
 const { sprintRouter } = require("./Routes/Sprint.route");
-const { taskRouter } = require("./Routes/task.route");
+const { taskRouter } = require("./Routes/Task.route");
 require('dotenv').config();
 const port = process.env.PORT || 8080;
 const app=express();
