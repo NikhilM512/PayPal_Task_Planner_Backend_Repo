@@ -32,7 +32,7 @@ sprintRouter.post("/", async (req, res) => {
 
         await new_sprint.save();
 
-        res.send({"msg" : "Sprint Added successfully"});
+        res.send({"msg" : "Sprint Added successfully",new_sprint});
     } 
 
     catch (error) {
