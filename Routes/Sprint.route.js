@@ -26,6 +26,7 @@ sprintRouter.get("/", async (req, res) => {
 sprintRouter.post("/", async (req, res) => {
 
     const payload = req.body;
+    
 
     try{
         const new_sprint = new SprintModel(payload);

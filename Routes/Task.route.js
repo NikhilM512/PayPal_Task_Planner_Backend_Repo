@@ -33,7 +33,7 @@ taskRouter.post("/", async (req, res) => {
 
         await new_task.save();
 
-        res.send({"msg" : "Task Added successfully"});
+        res.send({"msg" : "Task Added successfully",new_sprint,payload});
     }
 
     catch(err){
