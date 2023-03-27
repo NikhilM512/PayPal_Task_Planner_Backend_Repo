@@ -5,7 +5,7 @@ const taskSchema = mongoose.Schema({
     description:String,
     type:String,
     assignee:String,
-    label:String,
+    status:String,
     startDate:String,
     targetDate:String,
     favourite:Boolean,
