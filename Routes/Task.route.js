@@ -4,13 +4,14 @@ const { TaskModel } = require("../Model/Task.model");
 const taskRouter = express.Router();
 
 
-taskRouter.get("/", async (req, res) => {
+taskRouter.get("/:sprintID", async (req, res) => {
 
+    const sprintID = req.params.sprintID;
     const userID = req.body.userID;
 
     try{
 
-        const tasks = await TaskModel.find({userID});
+        const tasks = await TaskModel.find({sprintID});
 
         res.send( { data : tasks } );
 
