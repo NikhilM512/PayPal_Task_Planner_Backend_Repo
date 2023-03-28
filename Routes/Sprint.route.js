@@ -48,6 +48,7 @@ sprintRouter.patch("/:sprintID", async (req, res) => {
     
         const sprintID = req.params.sprintID;
         const userID = req.body.userID;
+        let payload=req.body;
 
     try { 
 

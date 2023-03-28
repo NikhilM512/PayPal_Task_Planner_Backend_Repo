@@ -31,9 +31,9 @@ taskRouter.post("/", async (req, res) => {
 
         const new_task = new TaskModel(payload);
 
-        await new_task.save();
+        const task = await new_task.save();
 
-        res.send({"msg" : "Task Added successfully",new_task,payload});
+        res.send({"msg" : "Task Added successfully",task,payload});
     }
 
     catch(err){
@@ -49,6 +49,7 @@ taskRouter.patch("/:taskID", async (req, res) => {
 
     const taskID = req.params.taskID;
     const userID = req.body.userID;
+    let payload=req.body;
 
     try{
 
